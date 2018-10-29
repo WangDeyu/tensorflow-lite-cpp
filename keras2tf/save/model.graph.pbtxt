@@ -1,0 +1,2589 @@
+node {
+  name: "input"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: -1
+        }
+        dim {
+          size: 32
+        }
+        dim {
+          size: 32
+        }
+        dim {
+          size: 3
+        }
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal/shape"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 4
+          }
+        }
+        tensor_content: "\003\000\000\000\003\000\000\000\003\000\000\000\n\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal/mean"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal/stddev"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.27216553688049316
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal/TruncatedNormal"
+  op: "TruncatedNormal"
+  input: "conv2d/kernel/Initializer/truncated_normal/shape"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal/mul"
+  op: "Mul"
+  input: "conv2d/kernel/Initializer/truncated_normal/TruncatedNormal"
+  input: "conv2d/kernel/Initializer/truncated_normal/stddev"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Initializer/truncated_normal"
+  op: "Add"
+  input: "conv2d/kernel/Initializer/truncated_normal/mul"
+  input: "conv2d/kernel/Initializer/truncated_normal/mean"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 3
+        }
+        dim {
+          size: 3
+        }
+        dim {
+          size: 3
+        }
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "conv2d/kernel"
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "conv2d/kernel"
+}
+node {
+  name: "conv2d/kernel/Assign"
+  op: "AssignVariableOp"
+  input: "conv2d/kernel"
+  input: "conv2d/kernel/Initializer/truncated_normal"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "conv2d/kernel"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/Square/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "conv2d/kernel"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/Square"
+  op: "Square"
+  input: "conv2d/kernel/Regularizer/Square/ReadVariableOp"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/mul/x"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 9.999999747378752e-05
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/mul"
+  op: "Mul"
+  input: "conv2d/kernel/Regularizer/mul/x"
+  input: "conv2d/kernel/Regularizer/Square"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/Const"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 4
+          }
+        }
+        tensor_content: "\000\000\000\000\001\000\000\000\002\000\000\000\003\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/Sum"
+  op: "Sum"
+  input: "conv2d/kernel/Regularizer/mul"
+  input: "conv2d/kernel/Regularizer/Const"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/add/x"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/kernel/Regularizer/add"
+  op: "Add"
+  input: "conv2d/kernel/Regularizer/add/x"
+  input: "conv2d/kernel/Regularizer/Sum"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@conv2d/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/dilation_rate"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\001\000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "conv2d/Conv2D/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "conv2d/kernel"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "conv2d/Conv2D"
+  op: "Conv2D"
+  input: "input"
+  input: "conv2d/Conv2D/ReadVariableOp"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+  attr {
+    key: "dilations"
+    value {
+      list {
+        i: 1
+        i: 1
+        i: 1
+        i: 1
+      }
+    }
+  }
+  attr {
+    key: "padding"
+    value {
+      s: "SAME"
+    }
+  }
+  attr {
+    key: "strides"
+    value {
+      list {
+        i: 1
+        i: 1
+        i: 1
+        i: 1
+      }
+    }
+  }
+  attr {
+    key: "use_cudnn_on_gpu"
+    value {
+      b: true
+    }
+  }
+}
+node {
+  name: "batch_normalization/gamma/Initializer/ones"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/gamma"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 10
+          }
+        }
+        float_val: 1.0
+      }
+    }
+  }
+}
+node {
+  name: "batch_normalization/gamma"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/gamma"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "batch_normalization/gamma"
+    }
+  }
+}
+node {
+  name: "batch_normalization/gamma/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/gamma"
+}
+node {
+  name: "batch_normalization/gamma/Assign"
+  op: "AssignVariableOp"
+  input: "batch_normalization/gamma"
+  input: "batch_normalization/gamma/Initializer/ones"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/gamma"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/gamma/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/gamma"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/gamma"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/beta/Initializer/zeros"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/beta"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 10
+          }
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "batch_normalization/beta"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/beta"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "batch_normalization/beta"
+    }
+  }
+}
+node {
+  name: "batch_normalization/beta/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/beta"
+}
+node {
+  name: "batch_normalization/beta/Assign"
+  op: "AssignVariableOp"
+  input: "batch_normalization/beta"
+  input: "batch_normalization/beta/Initializer/zeros"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/beta"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/beta/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/beta"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/beta"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_mean/Initializer/zeros"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_mean"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 10
+          }
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_mean"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_mean"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "batch_normalization/moving_mean"
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_mean/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/moving_mean"
+}
+node {
+  name: "batch_normalization/moving_mean/Assign"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_mean"
+  input: "batch_normalization/moving_mean/Initializer/zeros"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_mean"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_mean/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_mean"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_mean"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_variance/Initializer/ones"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_variance"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 10
+          }
+        }
+        float_val: 1.0
+      }
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_variance"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_variance"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "batch_normalization/moving_variance"
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_variance/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/moving_variance"
+}
+node {
+  name: "batch_normalization/moving_variance/Assign"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_variance"
+  input: "batch_normalization/moving_variance/Initializer/ones"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_variance"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/moving_variance/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_variance"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@batch_normalization/moving_variance"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/gamma"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/ReadVariableOp_1"
+  op: "ReadVariableOp"
+  input: "batch_normalization/beta"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/FusedBatchNorm/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_mean"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/FusedBatchNorm/ReadVariableOp_1"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_variance"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "batch_normalization/FusedBatchNorm"
+  op: "FusedBatchNorm"
+  input: "conv2d/Conv2D"
+  input: "batch_normalization/ReadVariableOp"
+  input: "batch_normalization/ReadVariableOp_1"
+  input: "batch_normalization/FusedBatchNorm/ReadVariableOp"
+  input: "batch_normalization/FusedBatchNorm/ReadVariableOp_1"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+  attr {
+    key: "epsilon"
+    value {
+      f: 0.0010000000474974513
+    }
+  }
+  attr {
+    key: "is_training"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "batch_normalization/Const"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.9900000095367432
+      }
+    }
+  }
+}
+node {
+  name: "relu/Relu"
+  op: "Relu"
+  input: "batch_normalization/FusedBatchNorm"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "global_max_pooling2d/Max/reduction_indices"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\001\000\000\000\002\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "global_max_pooling2d/Max"
+  op: "Max"
+  input: "relu/Relu"
+  input: "global_max_pooling2d/Max/reduction_indices"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/shape"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\n\000\000\000\005\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/min"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: -0.7745966911315918
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/max"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.7745966911315918
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/RandomUniform"
+  op: "RandomUniform"
+  input: "output/kernel/Initializer/random_uniform/shape"
+  attr {
+    key: "T"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "seed"
+    value {
+      i: 0
+    }
+  }
+  attr {
+    key: "seed2"
+    value {
+      i: 0
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/sub"
+  op: "Sub"
+  input: "output/kernel/Initializer/random_uniform/max"
+  input: "output/kernel/Initializer/random_uniform/min"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform/mul"
+  op: "Mul"
+  input: "output/kernel/Initializer/random_uniform/RandomUniform"
+  input: "output/kernel/Initializer/random_uniform/sub"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Initializer/random_uniform"
+  op: "Add"
+  input: "output/kernel/Initializer/random_uniform/mul"
+  input: "output/kernel/Initializer/random_uniform/min"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+        dim {
+          size: 5
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "output/kernel"
+    }
+  }
+}
+node {
+  name: "output/kernel/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "output/kernel"
+}
+node {
+  name: "output/kernel/Assign"
+  op: "AssignVariableOp"
+  input: "output/kernel"
+  input: "output/kernel/Initializer/random_uniform"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/kernel/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "output/kernel"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/Square/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "output/kernel"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/Square"
+  op: "Square"
+  input: "output/kernel/Regularizer/Square/ReadVariableOp"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/mul/x"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 9.999999747378752e-05
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/mul"
+  op: "Mul"
+  input: "output/kernel/Regularizer/mul/x"
+  input: "output/kernel/Regularizer/Square"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/Const"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 2
+          }
+        }
+        tensor_content: "\000\000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/Sum"
+  op: "Sum"
+  input: "output/kernel/Regularizer/mul"
+  input: "output/kernel/Regularizer/Const"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tidx"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "keep_dims"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/add/x"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "output/kernel/Regularizer/add"
+  op: "Add"
+  input: "output/kernel/Regularizer/add/x"
+  input: "output/kernel/Regularizer/Sum"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "output/bias/Initializer/zeros"
+  op: "Const"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/bias"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 5
+          }
+        }
+        float_val: 0.0
+      }
+    }
+  }
+}
+node {
+  name: "output/bias"
+  op: "VarHandleOp"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/bias"
+      }
+    }
+  }
+  attr {
+    key: "container"
+    value {
+      s: ""
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 5
+        }
+      }
+    }
+  }
+  attr {
+    key: "shared_name"
+    value {
+      s: "output/bias"
+    }
+  }
+}
+node {
+  name: "output/bias/IsInitialized/VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "output/bias"
+}
+node {
+  name: "output/bias/Assign"
+  op: "AssignVariableOp"
+  input: "output/bias"
+  input: "output/bias/Initializer/zeros"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/bias"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/bias/Read/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "output/bias"
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@output/bias"
+      }
+    }
+  }
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/MatMul/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "output/kernel"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/MatMul"
+  op: "MatMul"
+  input: "global_max_pooling2d/Max"
+  input: "output/MatMul/ReadVariableOp"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "output/BiasAdd/ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "output/bias"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "output/BiasAdd"
+  op: "BiasAdd"
+  input: "output/MatMul"
+  input: "output/BiasAdd/ReadVariableOp"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+}
+node {
+  name: "Placeholder"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 3
+        }
+        dim {
+          size: 3
+        }
+        dim {
+          size: 3
+        }
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp"
+  op: "AssignVariableOp"
+  input: "conv2d/kernel"
+  input: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp"
+  op: "ReadVariableOp"
+  input: "conv2d/kernel"
+  input: "^AssignVariableOp"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_1"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_1"
+  op: "AssignVariableOp"
+  input: "batch_normalization/gamma"
+  input: "Placeholder_1"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_1"
+  op: "ReadVariableOp"
+  input: "batch_normalization/gamma"
+  input: "^AssignVariableOp_1"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_2"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_2"
+  op: "AssignVariableOp"
+  input: "batch_normalization/beta"
+  input: "Placeholder_2"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_2"
+  op: "ReadVariableOp"
+  input: "batch_normalization/beta"
+  input: "^AssignVariableOp_2"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_3"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_3"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_mean"
+  input: "Placeholder_3"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_3"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_mean"
+  input: "^AssignVariableOp_3"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_4"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_4"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_variance"
+  input: "Placeholder_4"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_4"
+  op: "ReadVariableOp"
+  input: "batch_normalization/moving_variance"
+  input: "^AssignVariableOp_4"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_5"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+        dim {
+          size: 5
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_5"
+  op: "AssignVariableOp"
+  input: "output/kernel"
+  input: "Placeholder_5"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_5"
+  op: "ReadVariableOp"
+  input: "output/kernel"
+  input: "^AssignVariableOp_5"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "Placeholder_6"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 5
+        }
+      }
+    }
+  }
+}
+node {
+  name: "AssignVariableOp_6"
+  op: "AssignVariableOp"
+  input: "output/bias"
+  input: "Placeholder_6"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "ReadVariableOp_6"
+  op: "ReadVariableOp"
+  input: "output/bias"
+  input: "^AssignVariableOp_6"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "VarIsInitializedOp"
+  op: "VarIsInitializedOp"
+  input: "conv2d/kernel"
+}
+node {
+  name: "VarIsInitializedOp_1"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/gamma"
+}
+node {
+  name: "VarIsInitializedOp_2"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/beta"
+}
+node {
+  name: "VarIsInitializedOp_3"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/moving_mean"
+}
+node {
+  name: "VarIsInitializedOp_4"
+  op: "VarIsInitializedOp"
+  input: "batch_normalization/moving_variance"
+}
+node {
+  name: "VarIsInitializedOp_5"
+  op: "VarIsInitializedOp"
+  input: "output/kernel"
+}
+node {
+  name: "VarIsInitializedOp_6"
+  op: "VarIsInitializedOp"
+  input: "output/bias"
+}
+node {
+  name: "init"
+  op: "NoOp"
+  input: "^batch_normalization/beta/Assign"
+  input: "^batch_normalization/gamma/Assign"
+  input: "^batch_normalization/moving_mean/Assign"
+  input: "^batch_normalization/moving_variance/Assign"
+  input: "^conv2d/kernel/Assign"
+  input: "^output/bias/Assign"
+  input: "^output/kernel/Assign"
+}
+node {
+  name: "save/Const"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+        }
+        string_val: "model"
+      }
+    }
+  }
+}
+node {
+  name: "save/SaveV2/tensor_names"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 7
+          }
+        }
+        string_val: "batch_normalization/beta"
+        string_val: "batch_normalization/gamma"
+        string_val: "batch_normalization/moving_mean"
+        string_val: "batch_normalization/moving_variance"
+        string_val: "conv2d/kernel"
+        string_val: "output/bias"
+        string_val: "output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "save/SaveV2/shape_and_slices"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 7
+          }
+        }
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+      }
+    }
+  }
+}
+node {
+  name: "save/SaveV2"
+  op: "SaveV2"
+  input: "save/Const"
+  input: "save/SaveV2/tensor_names"
+  input: "save/SaveV2/shape_and_slices"
+  input: "batch_normalization/beta/Read/ReadVariableOp"
+  input: "batch_normalization/gamma/Read/ReadVariableOp"
+  input: "batch_normalization/moving_mean/Read/ReadVariableOp"
+  input: "batch_normalization/moving_variance/Read/ReadVariableOp"
+  input: "conv2d/kernel/Read/ReadVariableOp"
+  input: "output/bias/Read/ReadVariableOp"
+  input: "output/kernel/Read/ReadVariableOp"
+  attr {
+    key: "dtypes"
+    value {
+      list {
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+      }
+    }
+  }
+}
+node {
+  name: "save/control_dependency"
+  op: "Identity"
+  input: "save/Const"
+  input: "^save/SaveV2"
+  attr {
+    key: "T"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@save/Const"
+      }
+    }
+  }
+}
+node {
+  name: "save/RestoreV2/tensor_names"
+  op: "Const"
+  device: "/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 7
+          }
+        }
+        string_val: "batch_normalization/beta"
+        string_val: "batch_normalization/gamma"
+        string_val: "batch_normalization/moving_mean"
+        string_val: "batch_normalization/moving_variance"
+        string_val: "conv2d/kernel"
+        string_val: "output/bias"
+        string_val: "output/kernel"
+      }
+    }
+  }
+}
+node {
+  name: "save/RestoreV2/shape_and_slices"
+  op: "Const"
+  device: "/device:CPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_STRING
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_STRING
+        tensor_shape {
+          dim {
+            size: 7
+          }
+        }
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+        string_val: ""
+      }
+    }
+  }
+}
+node {
+  name: "save/RestoreV2"
+  op: "RestoreV2"
+  input: "save/Const"
+  input: "save/RestoreV2/tensor_names"
+  input: "save/RestoreV2/shape_and_slices"
+  device: "/device:CPU:0"
+  attr {
+    key: "dtypes"
+    value {
+      list {
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+        type: DT_FLOAT
+      }
+    }
+  }
+}
+node {
+  name: "save/Identity"
+  op: "Identity"
+  input: "save/RestoreV2"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp"
+  op: "AssignVariableOp"
+  input: "batch_normalization/beta"
+  input: "save/Identity"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_1"
+  op: "Identity"
+  input: "save/RestoreV2:1"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_1"
+  op: "AssignVariableOp"
+  input: "batch_normalization/gamma"
+  input: "save/Identity_1"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_2"
+  op: "Identity"
+  input: "save/RestoreV2:2"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_2"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_mean"
+  input: "save/Identity_2"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_3"
+  op: "Identity"
+  input: "save/RestoreV2:3"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_3"
+  op: "AssignVariableOp"
+  input: "batch_normalization/moving_variance"
+  input: "save/Identity_3"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_4"
+  op: "Identity"
+  input: "save/RestoreV2:4"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_4"
+  op: "AssignVariableOp"
+  input: "conv2d/kernel"
+  input: "save/Identity_4"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_5"
+  op: "Identity"
+  input: "save/RestoreV2:5"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_5"
+  op: "AssignVariableOp"
+  input: "output/bias"
+  input: "save/Identity_5"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/Identity_6"
+  op: "Identity"
+  input: "save/RestoreV2:6"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/AssignVariableOp_6"
+  op: "AssignVariableOp"
+  input: "output/kernel"
+  input: "save/Identity_6"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "save/restore_all"
+  op: "NoOp"
+  input: "^save/AssignVariableOp"
+  input: "^save/AssignVariableOp_1"
+  input: "^save/AssignVariableOp_2"
+  input: "^save/AssignVariableOp_3"
+  input: "^save/AssignVariableOp_4"
+  input: "^save/AssignVariableOp_5"
+  input: "^save/AssignVariableOp_6"
+}
+versions {
+  producer: 26
+}
